@@ -1,0 +1,87 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "owner1",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "owner",
+      "fullName": "Скрытый администратор",
+      "class": null,
+      "rating": null,
+      "isOwner": true
+    },
+    {
+      "id": 2,
+      "login": "admin1",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "admin",
+      "fullName": "Иванов Иван Иванович",
+      "class": "9А",
+      "rating": null,
+      "isOwner": false
+    },
+    {
+      "id": 3,
+      "login": "helper1",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "helper",
+      "fullName": "Петров Пётр Сергеевич",
+      "class": "9А",
+      "rating": 45,
+      "isOwner": false
+    },
+    {
+      "id": 4,
+      "login": "helper2",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "helper",
+      "fullName": "Смирнова Елена Дмитриевна",
+      "class": "9А",
+      "rating": 492,
+      "isOwner": false
+    },
+    {
+      "id": 5,
+      "login": "student1",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "user",
+      "fullName": "Сидоров Сергей Сергеевич",
+      "class": "9А",
+      "rating": 25,
+      "isOwner": false
+    },
+    {
+      "id": 6,
+      "login": "user2",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "user",
+      "fullName": "Козлова Анна Ивановна",
+      "class": "9А",
+      "rating": 38,
+      "isOwner": false
+    },
+    {
+      "id": 7,
+      "login": "user3",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "user",
+      "fullName": "Соколов Максим Владимирович",
+      "class": "9А",
+      "rating": 15,
+      "isOwner": false
+    },
+    {
+      "id": 8,
+      "login": "user4",
+      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "role": "user",
+      "fullName": "Новиков Дмитрий Геннадьевич",
+      "class": "9А",
+      "rating": 42,
+      "isOwner": false
+    }
+  ],
+  "complaints": [],
+  "notes": [],
+  "logs": []
+}

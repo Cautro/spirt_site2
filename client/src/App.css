@@ -1147,9 +1147,54 @@ body {
 }
 
 /* RESPONSIVE DESIGN */
+@media (max-width: 1400px) {
+  .dashboard-content {
+    padding: 24px;
+  }
+
+  .login-container form {
+    max-width: 360px;
+  }
+}
+
 @media (max-width: 1200px) {
   .dashboard-content {
     padding: 20px;
+  }
+
+  .dashboard-header {
+    padding: 20px 24px;
+    gap: 16px;
+  }
+
+  .login-container form {
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-header {
+    flex-wrap: wrap;
+    padding: 18px 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.5em;
+    width: 100%;
+  }
+
+  .dashboard-content {
+    padding: 18px;
+    max-width: 100%;
+  }
+
+  .user-info {
+    padding: 18px;
+  }
+
+  .modal {
+    width: 90%;
+    max-width: 480px;
   }
 }
 
@@ -1157,75 +1202,138 @@ body {
   .dashboard-header {
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 16px;
+    gap: 12px;
   }
 
   .dashboard-header h1 {
     font-size: 1.4em;
+    margin: 0;
   }
 
   .logout-button {
     width: 100%;
+    padding: 10px 16px;
   }
 
   .dashboard-content {
-    padding: 15px;
+    padding: 12px;
+    max-width: 100%;
   }
 
   .user-info {
-    padding: 20px 15px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .user-info h2 {
+    font-size: 1.3em;
+  }
+
+  .user-info p {
+    font-size: 0.9em;
   }
 
   .student-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .student-info {
+    width: 100%;
   }
 
   .student-info h4 {
     margin-bottom: 4px;
+    font-size: 1em;
+  }
+
+  .student-info p {
+    font-size: 0.85em;
   }
 
   .rating-badge {
     margin: 0;
+    font-size: 0.8em;
+    padding: 5px 10px;
   }
 
   .modal {
     padding: 20px;
     border-radius: 12px;
+    width: 95%;
+  }
+
+  .modal-overlay {
+    padding: 16px;
   }
 
   .button-group {
     flex-direction: column;
+    gap: 10px;
   }
 
   .button-group button {
     width: 100%;
     min-width: unset;
+    padding: 11px 16px;
+  }
+
+  .login-container {
+    padding: 16px;
   }
 
   .login-container form {
-    padding: 30px 20px;
+    padding: 28px 20px;
     max-width: 100%;
   }
 
   .login-container h1 {
     font-size: 2em;
+    margin-bottom: 32px;
   }
 
   .login-container input {
     width: 100%;
+    padding: 12px 14px;
+  }
+
+  .login-container button {
+    padding: 12px 20px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .message-item {
+    padding: 12px;
+    font-size: 0.9em;
+  }
+
+  .logs-table th,
+  .logs-table td {
+    padding: 12px 10px;
+    font-size: 0.9em;
   }
 }
 
-@media (max-width: 480px) {
-  .login-container h1 {
-    font-size: 1.6em;
-    margin-bottom: 30px;
+@media (max-width: 600px) {
+  .login-container form {
+    padding: 24px 16px;
+    gap: 14px;
   }
 
-  .login-container form {
-    padding: 20px 15px;
+  .login-container h1 {
+    font-size: 1.7em;
+    margin-bottom: 28px;
+  }
+
+  .dashboard-header {
+    padding: 14px;
+    gap: 10px;
   }
 
   .dashboard-header h1 {
@@ -1233,20 +1341,190 @@ body {
   }
 
   .dashboard-content {
-    padding: 12px;
-  }
-
-  .modal-overlay {
     padding: 10px;
   }
 
+  .user-info {
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  .user-info h2 {
+    font-size: 1.1em;
+  }
+
   .modal {
-    padding: 15px;
+    padding: 16px;
+    width: 98%;
+  }
+
+  .modal h2 {
+    font-size: 1.2em;
+  }
+
+  .logout-button {
+    padding: 9px 14px;
+    font-size: 13px;
   }
 
   .rating-badge {
+    font-size: 0.75em;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+  }
+
+  .login-container form {
+    padding: 20px 14px;
+    max-width: 100%;
+  }
+
+  .login-container h1 {
+    font-size: 1.5em;
+    margin-bottom: 24px;
+  }
+
+  .login-container input {
+    padding: 11px 12px;
+    font-size: 16px;
+  }
+
+  .login-container button {
+    padding: 11px 18px;
+    font-size: 15px;
+  }
+
+  .dashboard-header {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.1em;
+  }
+
+  .dashboard-content {
+    padding: 8px;
+  }
+
+  .user-info {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .user-info h2 {
+    font-size: 1em;
+  }
+
+  .user-info p {
     font-size: 0.85em;
-    padding: 6px 12px;
+    margin: 6px 0;
+  }
+
+  .student-item {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .student-info h4 {
+    font-size: 0.95em;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    padding: 14px;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .modal h2 {
+    font-size: 1.1em;
+  }
+
+  .button-group {
+    gap: 8px;
+  }
+
+  .button-group button {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .rating-badge {
+    font-size: 0.7em;
+    padding: 3px 6px;
+    margin: 0 4px 0 0;
+  }
+
+  .logs-table {
+    font-size: 0.85em;
+  }
+
+  .logs-table th,
+  .logs-table td {
+    padding: 10px 8px;
+  }
+
+  .message-item {
+    padding: 10px;
+  }
+
+  .message-header {
+    font-size: 13px;
+  }
+
+  .message-text {
+    font-size: 12px;
+  }
+
+  .message-time {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-container form {
+    padding: 18px 12px;
+  }
+
+  .login-container h1 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1em;
+  }
+
+  .user-info h2 {
+    font-size: 0.95em;
+  }
+
+  .modal {
+    padding: 12px;
+  }
+
+  .button-group button {
+    padding: 9px 12px;
+    font-size: 12px;
   }
 }
 

@@ -942,3 +942,309 @@
     }
 }
 
+@media (max-width: 640px) {
+    .owner-header {
+        padding: 14px 16px;
+    }
+
+    .owner-header-left h1 {
+        font-size: 24px;
+    }
+
+    .owner-badge {
+        font-size: 12px;
+    }
+
+    .owner-header-right {
+        gap: 16px;
+    }
+
+    .user-info span {
+        font-size: 13px;
+    }
+
+    .user-info small {
+        font-size: 11px;
+    }
+
+    .logout-btn {
+        padding: 9px 16px;
+        font-size: 13px;
+    }
+
+    .owner-content {
+        padding: 20px 12px;
+    }
+
+    .profile-card {
+        padding: 20px 16px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .section-header h2 {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item-card {
+        padding: 16px;
+    }
+
+    .item-card h3 {
+        font-size: 16px;
+    }
+
+    .tab-content {
+        padding: 18px 14px;
+    }
+
+    .form-card {
+        padding: 18px 14px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 11px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .owner-header {
+        padding: 12px 12px;
+    }
+
+    .owner-header-left {
+        flex: 1;
+    }
+
+    .owner-header-left h1 {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .owner-badge {
+        font-size: 11px;
+    }
+
+    .owner-header-right {
+        width: 100%;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .user-info {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .user-info span {
+        font-size: 12px;
+    }
+
+    .user-info small {
+        font-size: 10px;
+    }
+
+    .logout-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .owner-content {
+        padding: 12px 8px;
+    }
+
+    .profile-card {
+        padding: 16px 12px;
+    }
+
+    .section-header {
+        gap: 10px;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
+
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .items-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .item-card {
+        padding: 14px 12px;
+        border-left: 3px solid;
+    }
+
+    .item-card h3 {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .item-card p {
+        font-size: 13px;
+    }
+
+    .tab-content {
+        padding: 14px 10px;
+    }
+
+    .form-card {
+        padding: 14px 12px;
+    }
+
+    .form-card h4 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 9px 10px;
+        font-size: 13px;
+    }
+
+    .btn-submit {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 8px;
+    }
+
+    .modal {
+        width: 98%;
+        max-height: 95vh;
+    }
+
+    .modal-header {
+        padding: 16px 14px;
+    }
+
+    .modal-header h2 {
+        font-size: 16px;
+    }
+
+    .modal-form {
+        padding: 16px 14px;
+    }
+
+    .form-group input {
+        padding: 9px 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .owner-header {
+        padding: 10px 8px;
+    }
+
+    .owner-header-left h1 {
+        font-size: 18px;
+    }
+
+    .owner-header-right {
+        gap: 8px;
+    }
+
+    .user-info span {
+        font-size: 11px;
+    }
+
+    .logout-btn {
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .owner-content {
+        padding: 10px 6px;
+    }
+
+    .section-header h2 {
+        font-size: 16px;
+    }
+
+    .items-grid {
+        gap: 10px;
+    }
+
+    .item-card {
+        padding: 12px 10px;
+    }
+
+    .item-card h3 {
+        font-size: 14px;
+    }
+
+    .form-group label {
+        font-size: 11px;
+    }
+
+    .form-group input {
+        padding: 8px 8px;
+        font-size: 12px;
+    }
+
+    .data-table {
+        font-size: 11px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 6px;
+    }
+
+    .modal-header {
+        padding: 12px 10px;
+    }
+
+    .modal-form {
+        padding: 12px 10px;
+    }
+}
+

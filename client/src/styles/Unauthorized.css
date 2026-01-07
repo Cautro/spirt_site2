@@ -69,24 +69,104 @@
 }
 
 /* ============ RESPONSIVE ============ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+    .unauthorized-container {
+        padding: 16px;
+    }
+
     .error-box {
-        padding: 40px 24px;
-        border-radius: 12px;
+        padding: 48px 32px;
     }
 
     .error-box h1 {
-        font-size: 56px;
+        font-size: 64px;
     }
 
     .error-box p {
         font-size: 15px;
-        margin-bottom: 28px;
     }
 
     .back-btn {
         padding: 11px 28px;
         font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .unauthorized-container {
+        padding: 12px;
+    }
+
+    .error-box {
+        padding: 40px 28px;
+        border-radius: 12px;
+    }
+
+    .error-box h1 {
+        font-size: 56px;
+        margin-bottom: 16px;
+    }
+
+    .error-box p {
+        font-size: 14px;
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .back-btn {
+        padding: 10px 24px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .unauthorized-container {
+        padding: 10px;
+    }
+
+    .error-box {
+        padding: 32px 20px;
+        border-radius: 12px;
+        max-width: 360px;
+    }
+
+    .error-box h1 {
+        font-size: 48px;
+        margin-bottom: 14px;
+    }
+
+    .error-box p {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .back-btn {
+        padding: 9px 20px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .unauthorized-container {
+        padding: 8px;
+    }
+
+    .error-box {
+        padding: 24px 16px;
+    }
+
+    .error-box h1 {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .error-box p {
+        font-size: 12px;
+    }
+
+    .back-btn {
+        padding: 8px 16px;
+        font-size: 11px;
     }
 }
 

@@ -79,16 +79,6 @@
       "class": "9А",
       "rating": 0,
       "isOwner": false
-    },
-    {
-      "id": 9,
-      "login": "login",
-      "password": "$2b$10$kwIE4..9nGfxVFrHB.WUAu3Nzg/a9GJJyuqdhMsBsSEpXBbKbXh4e",
-      "role": "user",
-      "fullName": "Прохорова Вероника Алексеевна",
-      "class": "9А",
-      "rating": 0,
-      "isOwner": false
     }
   ],
   "complaints": [],

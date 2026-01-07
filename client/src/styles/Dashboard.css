@@ -18,8 +18,21 @@ html, body {
     padding: 0;
     height: 100%;
 }
+
+[data-theme="dark"] html, [data-theme="dark"] body {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 #root {
     height: 100%;
+}
+
+[data-theme="dark"] #root {
+    height: 100%;
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
 }
 
 /* ============ LOADING ============ */
@@ -591,6 +604,445 @@ html, body {
     .tab {
         min-width: 120px;
         padding: 14px 16px;
+    }
+
+    .profile-header {
+        gap: 20px;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
+    .profile-info h2 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-header {
+        padding: 14px 16px;
+    }
+
+    .header-left h1 {
+        font-size: 24px;
+    }
+
+    .header-subtitle {
+        font-size: 12px;
+    }
+
+    .logout-btn {
+        padding: 9px 18px;
+        font-size: 13px;
+    }
+
+    .dashboard-content {
+        padding: 16px 10px;
+    }
+
+    .profile-card {
+        padding: 18px 14px;
+        margin-bottom: 24px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+        margin: 0 auto;
+    }
+
+    .profile-info h2 {
+        font-size: 20px;
+    }
+
+    .profile-class {
+        font-size: 14px;
+    }
+
+    .profile-rating {
+        justify-content: center;
+    }
+
+    .tab-content {
+        padding: 16px 12px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .section-header h3 {
+        min-width: unset;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .classmates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .classmate-card {
+        padding: 16px;
+    }
+
+    .mate-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .classmate-card h4 {
+        font-size: 14px;
+    }
+
+    .mate-role {
+        font-size: 11px;
+    }
+
+    .items-list {
+        gap: 12px;
+    }
+
+    .item-card {
+        padding: 16px;
+    }
+
+    .item-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .item-header h4 {
+        font-size: 15px;
+    }
+
+    .item-date {
+        font-size: 11px;
+    }
+
+    .item-desc {
+        font-size: 13px;
+    }
+
+    .form-card {
+        padding: 18px 14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 11px 12px;
+        font-size: 14px;
+    }
+
+    .btn-submit {
+        padding: 11px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header {
+        padding: 12px 12px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header-left h1 {
+        font-size: 20px;
+    }
+
+    .header-subtitle {
+        font-size: 11px;
+    }
+
+    .header-right {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .logout-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .dashboard-content {
+        padding: 12px 8px;
+    }
+
+    .profile-card {
+        padding: 16px 12px;
+        margin-bottom: 20px;
+    }
+
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .profile-info h2 {
+        font-size: 18px;
+    }
+
+    .profile-info p {
+        font-size: 13px;
+    }
+
+    .profile-class {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .profile-rating {
+        padding: 10px 16px;
+    }
+
+    .rating-label {
+        font-size: 12px;
+    }
+
+    .rating-value {
+        font-size: 24px;
+    }
+
+    .tabs {
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .tab {
+        min-width: 100px;
+        padding: 12px 12px;
+        font-size: 13px;
+    }
+
+    .tab-content {
+        padding: 14px 10px;
+    }
+
+    .section-header {
+        gap: 10px;
+    }
+
+    .section-header h3 {
+        font-size: 18px;
+    }
+
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .classmates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+
+    .classmate-card {
+        padding: 12px;
+    }
+
+    .mate-avatar {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .classmate-card h4 {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .mate-role {
+        font-size: 10px;
+        margin-bottom: 8px;
+    }
+
+    .mate-rating {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .items-list {
+        gap: 10px;
+    }
+
+    .item-card {
+        padding: 12px;
+        border-left-width: 3px;
+    }
+
+    .item-header {
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .item-header h4 {
+        font-size: 14px;
+    }
+
+    .item-date {
+        font-size: 10px;
+    }
+
+    .item-desc {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .item-status {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+
+    .form-card {
+        padding: 16px 12px;
+        margin-bottom: 18px;
+    }
+
+    .form-card h4 {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px 10px;
+        font-size: 14px;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
+
+    .btn-submit {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .no-data {
+        padding: 40px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .dashboard-header {
+        padding: 10px 8px;
+    }
+
+    .header-left h1 {
+        font-size: 18px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    .logout-btn {
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .dashboard-content {
+        padding: 10px 6px;
+    }
+
+    .profile-card {
+        padding: 12px 10px;
+    }
+
+    .profile-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .profile-info h2 {
+        font-size: 16px;
+    }
+
+    .profile-info p {
+        font-size: 12px;
+    }
+
+    .tab {
+        min-width: 80px;
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .tab-content {
+        padding: 12px 8px;
+    }
+
+    .section-header h3 {
+        font-size: 16px;
+    }
+
+    .classmates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 6px;
+    }
+
+    .classmate-card h4 {
+        font-size: 12px;
+    }
+
+    .items-list {
+        gap: 8px;
+    }
+
+    .item-card {
+        padding: 10px;
+    }
+
+    .item-header h4 {
+        font-size: 13px;
+    }
+
+    .form-card {
+        padding: 12px 10px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 13px;
+        padding: 8px 8px;
     }
 }
 

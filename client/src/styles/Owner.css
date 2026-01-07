@@ -358,8 +358,6 @@
 
 .tabs {
     display: flex;
-    border-bottom: 2px solid #f0f0f0;
-    background: #f8f9fa;
     flex-wrap: wrap;
 }
 
@@ -374,7 +372,6 @@
     font-weight: 600;
     color: #666;
     transition: all 0.3s ease;
-    border-bottom: 3px solid transparent;
     margin-bottom: -2px;
     white-space: nowrap;
     position: relative;

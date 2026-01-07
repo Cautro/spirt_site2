@@ -44,8 +44,8 @@ export default function Login() {
     return (
         <div className="login-container">
             <div className="login-card">
-                <h1>CSPIRT</h1>
-                <p className="subtitle">Система управления жалобами и заметками</p>
+                <h1>CPIRT</h1>
+                <p className="subtitle">Centralized Profile & Internal Rating Tool</p>
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -78,14 +78,6 @@ export default function Login() {
                         {loading ? "Вход..." : "Войти"}
                     </button>
                 </form>
-
-                <div className="demo-credentials">
-                    <h3>Демо-учётные данные:</h3>
-                    <p><strong>Овнер (владелец):</strong> owner / password</p>
-                    <p><strong>Админ (кл. рук):</strong> admin / password</p>
-                    <p><strong>Хелпер (староста):</strong> helper1 / password</p>
-                    <p><strong>Ученик:</strong> user1 / password</p>
-                </div>
             </div>
         </div>
     );

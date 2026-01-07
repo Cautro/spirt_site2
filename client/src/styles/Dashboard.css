@@ -49,6 +49,7 @@ html, body {
     justify-content: center;
     z-index: 9999;
     color: white;
+    color: white;
     font-size: 18px;
 }
 
@@ -252,7 +253,6 @@ html, body {
 .tabs {
     display: flex;
     background: #f8f9fa;
-    border-bottom: 2px solid #e9ecef;
     gap: 0;
     flex-wrap: wrap;
 }
@@ -268,7 +268,6 @@ html, body {
     font-weight: 600;
     color: #666;
     transition: all 0.3s ease;
-    border-bottom: 3px solid transparent;
     margin-bottom: -2px;
     white-space: nowrap;
 }
@@ -333,11 +332,20 @@ html, body {
     margin-bottom: 24px;
 }
 
+[data-theme="dark"] .form-card {
+    background: #1e1e2e;
+    border-color: #444;
+}
+
 .form-card h4 {
     margin: 0 0 20px 0;
     font-size: 16px;
     color: #333;
     font-weight: 600;
+}
+
+[data-theme="dark"] .form-card h4 {
+    color: #e4e4e7;
 }
 
 .form-group {
@@ -495,6 +503,11 @@ html, body {
     padding: 20px;
     transition: all 0.3s ease;
     border-left: 4px solid #667eea;
+}
+
+[data-theme="dark"] .item-card {
+    background: #2d1b69;
+    border-color: #444;
 }
 
 .item-card:hover {

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useEffect, useState } from "react";
+import ThemeToggle from "../components/ThemeToggle";
 import "../styles/Owner.css";
 
 const API_URL = "http://localhost:3000";
@@ -73,9 +74,9 @@ export default function Owner() {
 
     const getRoleLabel = (role) => {
         const labels = {
-            admin: '👨‍🏫 Учитель',
-            helper: '🌟 Старост.',
-            user: '👤 Ученик'
+            admin: 'Учитель',
+            helper: 'Старост.',
+            user: 'Ученик'
         };
         return labels[role] || role;
     };
@@ -211,14 +212,15 @@ export default function Owner() {
         <div className="owner-container">
             <header className="owner-header">
                 <div className="owner-header-left">
-                    <h1>🔐 Панель владельца системы</h1>
-                    <p className="owner-badge">Скрытое управление • Полный контроль</p>
+                    <h1>Администраторская панель системы</h1>
+                    <p className="owner-badge">Управление пользователями • Контроль системы</p>
                 </div>
                 <div className="owner-header-right">
                     <div className="user-info">
                         <span>{user?.fullName}</span>
                         <small>{user?.role}</small>
                     </div>
+                    <ThemeToggle />
                     <button onClick={handleLogout} className="logout-btn">Выход</button>
                 </div>
             </header>
@@ -229,22 +231,22 @@ export default function Owner() {
             <main className="owner-content">
                 <div className="stats-grid">
                     <div className="stat-card">
-                        <div className="stat-icon">👥</div>
+                        <div className="stat-icon"></div>
                         <h3>Пользователей</h3>
                         <p className="stat-number">{stats.totalUsers}</p>
                         <div className="stat-breakdown">
-                            <span>👤 Учеников: {stats.students}</span>
-                            <span>🌟 Старост: {stats.helpers}</span>
-                            <span>👨‍🏫 Учителей: {stats.admins}</span>
+                            <span>Учеников: {stats.students}</span>
+                            <span>Старост: {stats.helpers}</span>
+                            <span>Учителей: {stats.admins}</span>
                         </div>
                     </div>
                     <div className="stat-card">
-                        <div className="stat-icon">⚠️</div>
+                        <div className="stat-icon"></div>
                         <h3>Жалоб</h3>
                         <p className="stat-number">{stats.totalComplaints}</p>
                     </div>
                     <div className="stat-card">
-                        <div className="stat-icon">📋</div>
+                        <div className="stat-icon"></div>
                         <h3>Заметок</h3>
                         <p className="stat-number">{stats.totalNotes}</p>
                     </div>
@@ -256,19 +258,19 @@ export default function Owner() {
                             className={`tab ${selectedTab === 'users' ? 'active' : ''}`}
                             onClick={() => setSelectedTab('users')}
                         >
-                            👥 Пользователи
+                            Пользователи
                         </button>
                         <button
                             className={`tab ${selectedTab === 'complaints' ? 'active' : ''}`}
                             onClick={() => setSelectedTab('complaints')}
                         >
-                            ⚠️ Жалобы ({stats.totalComplaints})
+                            Жалобы ({stats.totalComplaints})
                         </button>
                         <button
                             className={`tab ${selectedTab === 'notes' ? 'active' : ''}`}
                             onClick={() => setSelectedTab('notes')}
                         >
-                            📋 Заметки ({stats.totalNotes})
+                            Заметки ({stats.totalNotes})
                         </button>
                     </div>
 
@@ -317,7 +319,7 @@ export default function Owner() {
                                                                 onClick={() => handleDeleteUser(u.id)}
                                                                 title="Удалить пользователя"
                                                             >
-                                                                🗑️
+                                                                ×
                                                             </button>
                                                         </td>
                                                     </tr>

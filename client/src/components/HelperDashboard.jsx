@@ -63,7 +63,7 @@ const HelperDashboard = ({ user, onLogout, data = {}, addNote, isDarkMode, toggl
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         color: 'white'
       }}>
-        <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 600 }}>Панель Помощника</h1>
+        <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 600 }}>Панель помощника</h1>
         <button className="logout-button" onClick={onLogout} style={{
           background: 'rgba(255,255,255,0.2)',
           color: 'white',

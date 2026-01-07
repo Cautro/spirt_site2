@@ -1,11 +1,56 @@
 /* ============ OWNER DASHBOARD ============ */
 .owner-container {
     min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: #333;
 }
 
+[data-theme="dark"] .owner-container {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+}
+
+/* ============ LOADING ============ */
+.owner-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    color: white;
+    font-size: 18px;
+}
+
+[data-theme="dark"] .owner-loading {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.owner-loading .spinner {
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top: 6px solid white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
 /* ============ HEADER ============ */
 .owner-header {
     background: rgba(255, 255, 255, 0.97);
@@ -16,6 +61,11 @@
     align-items: center;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+[data-theme="dark"] .owner-header {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+    border-bottom-color: rgba(102, 126, 234, 0.2);
 }
 
 .owner-header-left {
@@ -32,6 +82,11 @@
     font-weight: 700;
 }
 
+[data-theme="dark"] .owner-header-left h1 {
+    color: white;
+    -webkit-text-fill-color: unset;
+}
+
 .owner-badge {
     margin: 0;
     color: #999;
@@ -39,6 +94,10 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+[data-theme="dark"] .owner-badge {
+    color: #a1a1a1;
 }
 
 .owner-header-right {
@@ -58,6 +117,10 @@
     font-weight: 600;
     color: #333;
     font-size: 14px;
+}
+
+[data-theme="dark"] .user-info span {
+    color: #e4e4e7;
 }
 
 .user-info small {
@@ -317,6 +380,23 @@
     position: relative;
 }
 
+[data-theme="dark"] .tab {
+    color: #aaa;
+    background: #1e1e2e;
+    border-bottom-color: transparent;
+}
+
+[data-theme="dark"] .tab.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    background: #1e1e2e;
+}
+
+[data-theme="dark"] .tab:hover {
+    background: #667eea;;
+    color: #ffffff;
+}
+
 .tab:hover {
     color: #333;
     background: rgba(102, 126, 234, 0.05);
@@ -330,7 +410,15 @@
 
 .tab-content {
     padding: 32px;
+    background: white;
 }
+
+[data-theme="dark"] .tab-content {
+    background: #1c223a;
+    color: #fff;
+}
+
+
 
 /* ============ SECTIONS ============ */
 .section-header {
@@ -348,6 +436,10 @@
     color: #333;
     flex: 1;
     min-width: 200px;
+}
+
+[data-theme="dark"] .section-header h2 {
+    color: #e4e4e7;
 }
 
 .section-desc {
@@ -379,7 +471,76 @@
 }
 
 .data-table thead {
-    background: #f8f9fa;
+    background: #2a2a3d;
+    border-bottom: none;
+}
+
+[data-theme="dark"] .data-table thead {
+    background: #1e1e2e;
+}
+
+.data-table tbody tr.role-admin {
+    background: #17a2b8; /* бирюзовый для учителя */
+    color: white;
+}
+
+.data-table tbody tr.role-helper {
+    background: #ffc107; /* жёлтый для старост */
+    color: #333;
+}
+
+.data-table tbody tr.role-user {
+    background: #28a745; /* зелёный для учеников */
+    color: white;
+}
+
+/* Hover-эффект — лёгкое затемнение */
+.data-table tbody tr:hover {
+    opacity: 0.9;
+    transform: none;
+}
+
+/* Специально для тёмной темы — чуть темнее цвета */
+[data-theme="dark"] .data-table tbody tr.role-admin {
+    background: #138496;
+}
+
+[data-theme="dark"] .data-table tbody tr.role-helper {
+    background: #e0a800;
+}
+
+[data-theme="dark"] .data-table tbody tr.role-user {
+    background: #218838;
+}
+
+/* Белый текст для логина и кнопки удаления в цветных строках */
+[data-theme="dark"] .data-table tbody tr.role-admin code,
+.data-table tbody tr.role-user code {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+[data-theme="dark"].data-table tbody tr.role-helper code {
+    background: rgba(0, 0, 0, 0.15);
+    color: #333;
+}
+
+/* Кнопка удаления — белая на цветном фоне */
+[data-theme="dark"].data-table tbody tr {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    opacity: 1;
+}
+
+[data-theme="dark"].data-table tbody tr.role-helper {
+    background: rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+[data-theme="dark"].data-table tbody tr {
+    background: #ff5252;
+    color: white;
+    transform: scale(1.1);
 }
 
 .data-table th {
@@ -387,21 +548,32 @@
     text-align: left;
     color: #666;
     font-weight: 600;
-    border-bottom: 2px solid #e9ecef;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+[data-theme="dark"] .data-table th {
+    background: #2a2a3d;
+    color: #aaa;
+}
+
 .data-table td {
     padding: 16px;
-    border-bottom: 1px solid #f0f0f0;
     color: #666;
     font-size: 14px;
 }
 
+[data-theme="dark"] .data-table td {
+    color: #ccc;
+}
+
 .data-table tbody tr {
     transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .data-table tbody tr:hover {
+    background: #33334d;
 }
 
 .data-table tbody tr:hover {
@@ -745,12 +917,24 @@
     }
 
     .table-wrapper {
-        font-size: 12px;
+        overflow-x: auto;
+        border-radius: 12px;
+        border: none !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 0;
     }
 
     .data-table th,
     .data-table td {
-        padding: 12px 8px;
+        border: none !important;
+        padding: 16px;
     }
 
     .modal {

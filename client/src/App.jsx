@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
@@ -7,6 +8,11 @@ import Unauthorized from "./pages/Unauthorized";
 import RequireAuth from "./auth/RequireAuth";
 
 export default function App() {
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useState, useEffect } from "react";
+import ThemeToggle from "../components/ThemeToggle";
 import "../styles/Dashboard.css";
 
 const API_URL = "http://localhost:3000";
@@ -160,6 +161,7 @@ export default function Dashboard() {
                         </p>
                     </div>
                     <div className="header-right">
+                        <ThemeToggle />
                         <button onClick={handleLogout} className="logout-btn">Выход</button>
                     </div>
                 </div>

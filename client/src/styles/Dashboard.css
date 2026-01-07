@@ -4,6 +4,22 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: #333;
+    width: 100%;
+    height: 100%;
+}
+
+[data-theme="dark"] .dashboard-container {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+    color: #e4e4e7;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#root {
+    height: 100%;
 }
 
 /* ============ LOADING ============ */
@@ -21,6 +37,10 @@
     z-index: 9999;
     color: white;
     font-size: 18px;
+}
+
+[data-theme="dark"] .dashboard-loading {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
 }
 
 .loading-spinner {
@@ -46,6 +66,11 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+[data-theme="dark"] .dashboard-header {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0f2e 100%);
+    border-bottom-color: rgba(102, 126, 234, 0.2);
 }
 
 .header-content {
@@ -114,7 +139,26 @@
     padding: 32px;
     margin-bottom: 32px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f0f0;
+}
+
+[data-theme="dark"] .profile-card {
+    background: #1e1e2e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+[data-theme="dark"] .profile-info p {
+    color: #ccc;
 }
 
 .profile-header {
@@ -164,13 +208,18 @@
 
 .rating-label {
     color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
+    display: block;
     font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
 .rating-value {
     font-size: 28px;
     font-weight: 700;
+    color: white;
 }
 
 /* ============ TABS ============ */
@@ -179,7 +228,12 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f0f0;
+}
+
+[data-theme="dark"] .tabs-section {
+    background: #2d1b69;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-color: #444;
 }
 
 .tabs {
@@ -352,6 +406,11 @@
     transition: all 0.3s ease;
 }
 
+[data-theme="dark"] .classmate-card {
+    background: #2d1b69;
+    border-color: #444;
+}
+
 .classmate-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
@@ -372,11 +431,24 @@
     margin: 0 auto 15px;
 }
 
+[data-theme="dark"] .profile-info h2 {
+    color: #e4e4e7;
+}
+
 .classmate-card h4 {
     margin: 0 0 8px 0;
     font-size: 15px;
     color: #333;
     font-weight: 600;
+}
+
+[data-theme="dark"] .profile-class {
+    color: #bbb;
+    margin-bottom: 12px;
+}
+
+[data-theme="dark"] .section-header h3 {
+    color: #e4e4e7;
 }
 
 .mate-role {

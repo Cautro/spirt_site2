@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useEffect, useState } from "react";
+import ThemeToggle from "../components/ThemeToggle";
 import "../styles/Admin.css";
 
 const API_URL = "http://localhost:3000";
@@ -60,7 +61,6 @@ export default function Admin() {
         const change = type === 'increase' ? parseInt(ratingChange) : -parseInt(ratingChange);
         const newRating = selectedStudent.rating + change;
 
-        // Валидация: рейтинг должен быть от 0 до 500
         if (newRating < 0) {
             setError("Рейтинг не может быть ниже 0");
             return;
@@ -172,18 +172,18 @@ export default function Admin() {
     const getStatistics = () => {
         const stats = {
             total: students.length,
-            needsAttention: students.filter(s => s.rating < 50).length, // Требуют внимания (0-49)
-            good: students.filter(s => s.rating >= 50 && s.rating < 250).length, // Хорошие (50-249)
-            excellent: students.filter(s => s.rating >= 250).length, // Отличные (250+)
+            needsAttention: students.filter(s => s.rating < 50).length,
+            good: students.filter(s => s.rating >= 50 && s.rating < 250).length,
+            excellent: students.filter(s => s.rating >= 250).length,
             average: students.length > 0 ? Math.round(students.reduce((sum, s) => sum + s.rating, 0) / students.length) : 0
         };
         return stats;
     };
 
     const getRatingCategory = (rating) => {
-        if (rating < 50) return { name: '⚠️ Требует внимания', color: '#ff6b6b' };
-        if (rating < 250) return { name: '✓ Хороший', color: '#ffc107' };
-        return { name: '⭐ Отличный', color: '#4caf50' };
+        if (rating < 50) return { name: 'Требует внимания', color: '#ff6b6b' };
+        if (rating < 250) return { name: 'Хороший уровень', color: '#ffc107' };
+        return { name: 'Отличный уровень', color: '#4caf50' };
     };
 
     if (loading) {
@@ -200,10 +200,11 @@ export default function Admin() {
             <header className="admin-header">
                 <div className="header-content">
                     <div className="header-left">
-                        <h1>👨‍🏫 Администраторская панель</h1>
+                        <h1>Администраторская панель</h1>
                         <p className="header-subtitle">Управление рейтингом учеников класса {user?.class}</p>
                     </div>
                     <div className="header-right">
+                        <ThemeToggle />
                         <button onClick={handleLogout} className="logout-btn">Выход</button>
                     </div>
                 </div>
@@ -216,30 +217,30 @@ export default function Admin() {
                 {/* Статистика */}
                 <div className="stats-grid">
                     <div className="stat-card">
-                        <div className="stat-icon">👥</div>
+                        <div className="stat-icon"></div>
                         <h3>Всего учеников</h3>
                         <p className="stat-number">{getStatistics().total}</p>
                     </div>
                     <div className="stat-card warning">
-                        <div className="stat-icon">⚠️</div>
+                        <div className="stat-icon"></div>
                         <h3>Требуют внимания</h3>
                         <p className="stat-number">{getStatistics().needsAttention}</p>
                         <p className="stat-desc">Рейтинг: 0-49</p>
                     </div>
                     <div className="stat-card info">
-                        <div className="stat-icon">✓</div>
+                        <div className="stat-icon"></div>
                         <h3>Хорошие</h3>
                         <p className="stat-number">{getStatistics().good}</p>
                         <p className="stat-desc">Рейтинг: 50-249</p>
                     </div>
                     <div className="stat-card success">
-                        <div className="stat-icon">⭐</div>
+                        <div className="stat-icon"></div>
                         <h3>Отличные</h3>
                         <p className="stat-number">{getStatistics().excellent}</p>
                         <p className="stat-desc">Рейтинг: 250+</p>
                     </div>
                     <div className="stat-card average">
-                        <div className="stat-icon">📊</div>
+                        <div className="stat-icon"></div>
                         <h3>Средний рейтинг</h3>
                         <p className="stat-number">{getStatistics().average}</p>
                         <p className="stat-desc">По классу</p>
@@ -249,7 +250,7 @@ export default function Admin() {
                 <div className="admin-grid">
                     <div className="students-panel">
                         <div className="panel-header">
-                            <h2>📚 Ученики класса {user?.class}</h2>
+                            <h2>Ученики класса {user?.class}</h2>
                             <button
                                 className="btn-primary-small"
                                 onClick={() => setShowAddUserModal(true)}
@@ -272,6 +273,17 @@ export default function Admin() {
                                                 setSelectedStudent(student);
                                                 setRatingChange(0);
                                             }}
+                                            // Обработчики нажатия теперь здесь — на внутреннем блоке
+                                            onMouseDown={(e) => {
+                                                if (e.target.closest('.btn-delete-student')) return;
+                                                e.currentTarget.parentElement.classList.add('pressed');
+                                            }}
+                                            onMouseUp={(e) => {
+                                                e.currentTarget.parentElement.classList.remove('pressed');
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.parentElement.classList.remove('pressed');
+                                            }}
                                         >
                                             <div className="student-avatar">
                                                 {student.fullName?.charAt(0).toUpperCase()}
@@ -282,7 +294,7 @@ export default function Admin() {
                                                     <span className={`rating-badge rating-${student.rating < 50 ? 'warning' : student.rating < 250 ? 'good' : 'excellent'}`}>
                                                         {getRatingCategory(student.rating).name}
                                                     </span>
-                                                    <span className="rating-value"> {student.rating}</span>
+                                                    <span className="rating-value2"> {student.rating}</span>
                                                 </p>
                                             </div>
                                             <div className="student-arrow">→</div>
@@ -295,7 +307,7 @@ export default function Admin() {
                                             }}
                                             title="Удалить ученика"
                                         >
-                                            🗑️
+                                            ×
                                         </button>
                                     </div>
                                 ))}
@@ -313,7 +325,7 @@ export default function Admin() {
                                     <div className="student-details">
                                         <h2>{selectedStudent.fullName}</h2>
                                         <p className="class-info">Класс: {selectedStudent.class}</p>
-                                        <p className="role-info">Роль: {selectedStudent.role === 'helper' ? '🌟 Старост' : '👤 Ученик'}</p>
+                                        <p className="role-info">Роль: {selectedStudent.role === 'helper' ? 'Староста' : 'Ученик'}</p>
                                     </div>
                                 </div>
 
@@ -341,14 +353,14 @@ export default function Admin() {
                                             onClick={() => handleRatingChange('increase')}
                                             disabled={ratingChange === 0 || ratingChange === ''}
                                         >
-                                            ✓ Повысить
+                                            Повысить
                                         </button>
                                         <button
                                             className="btn-decrease"
                                             onClick={() => handleRatingChange('decrease')}
                                             disabled={ratingChange === 0 || ratingChange === ''}
                                         >
-                                            ✗ Понизить
+                                            Понизить
                                         </button>
                                     </div>
                                 </div>
@@ -365,7 +377,7 @@ export default function Admin() {
                             </div>
                         ) : (
                             <div className="empty-state">
-                                <p>👈 Выберите ученика из списка</p>
+                                <p>Выберите ученика из списка</p>
                                 <p className="empty-hint">Нажмите на имя ученика чтобы изменить его рейтинг</p>
                             </div>
                         )}
@@ -430,4 +442,3 @@ export default function Admin() {
         </div>
     );
 }
-

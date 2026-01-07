@@ -125,7 +125,7 @@ const OwnerDashboard = ({ user, onLogout, data = {}, updateUserData, addUser, de
         background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)',
         color: 'white'
       }}>
-        <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 600 }}>Панель Администратора</h1>
+        <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 600 }}>Администраторская панель</h1>
         <button className="logout-button" onClick={onLogout} style={{
           background: 'rgba(255,255,255,0.2)',
           color: 'white',

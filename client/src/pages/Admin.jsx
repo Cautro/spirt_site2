@@ -20,7 +20,8 @@ export default function Admin() {
     const [newUserForm, setNewUserForm] = useState({
         login: "",
         password: "",
-        fullName: ""
+        fullName: "",
+        class: ""
     });
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -130,7 +131,7 @@ export default function Admin() {
                     password: newUserForm.password,
                     role: "user",
                     fullName: newUserForm.fullName,
-                    class: user?.class
+                    class: newUserForm.class || user?.class
                 })
             });
 
@@ -146,7 +147,8 @@ export default function Admin() {
                 setNewUserForm({
                     login: "",
                     password: "",
-                    fullName: ""
+                    fullName: "",
+                    class: ""
                 });
                 setSuccess("Ученик добавлен в класс");
                 setTimeout(() => setSuccess(""), 3000);
@@ -579,6 +581,15 @@ export default function Admin() {
                                     value={newUserForm.password}
                                     onChange={(e) => setNewUserForm({...newUserForm, password: e.target.value})}
                                     placeholder="Введите пароль"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Класс</label>
+                                <input
+                                    type="text"
+                                    value={newUserForm.class}
+                                    onChange={(e) => setNewUserForm({...newUserForm, class: e.target.value})}
+                                    placeholder="Например: 8А"
                                 />
                             </div>
                             <div className="modal-buttons">

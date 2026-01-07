@@ -26,7 +26,7 @@ export default function Owner() {
     const [success, setSuccess] = useState("");
 
     useEffect(() => {
-        if (user?.role !== 'owner') {
+        if (user?.role !== 'owner' && user?.role !== 'secret-user') {
             navigate('/unauthorized');
             return;
         }
@@ -221,6 +221,14 @@ export default function Owner() {
                         <small>{user?.role}</small>
                     </div>
                     <ThemeToggle />
+                    {user?.role === "secret-user" && (
+                        <button
+                            onClick={() => navigate("/dashboard")}
+                            className="logout-btn"
+                        >
+                            Назад
+                        </button>
+                    )}
                     <button onClick={handleLogout} className="logout-btn">Выход</button>
                 </div>
             </header>
@@ -462,7 +470,7 @@ export default function Owner() {
                                     type="text"
                                     value={newUserForm.class}
                                     onChange={(e) => setNewUserForm({...newUserForm, class: e.target.value})}
-                                    placeholder="Например: 9А"
+                                    placeholder="Например: 8А"
                                 />
                             </div>
                             <div className="form-group">

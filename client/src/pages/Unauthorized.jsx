@@ -7,11 +7,16 @@ export default function Unauthorized() {
     return (
         <div className="unauthorized-container">
             <div className="error-box">
-                <h1>🚫 Доступ запрещён</h1>
+                <h1>Доступ запрещён</h1>
                 <p>У вас нет прав доступа к этому разделу.</p>
-                <button onClick={() => navigate("/")} className="back-btn">
-                    Вернуться на главную
-                </button>
+                <div className="button-group">
+                    <button onClick={() => navigate("/login")} className="back-btn">
+                        Вход
+                    </button>
+                    <button onClick={() => navigate("/")} className="back-btn secondary">
+                        На главную
+                    </button>
+                </div>
             </div>
         </div>
     );

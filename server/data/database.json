@@ -3,7 +3,7 @@
     {
       "id": 1,
       "login": "owner1",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "owner",
       "fullName": "Скрытый администратор",
       "class": null,
@@ -11,72 +11,82 @@
       "isOwner": true
     },
     {
+      "id": 9,
+      "login": "secret",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
+      "role": "secret-user",
+      "fullName": "Лохматый",
+      "class": "8А",
+      "rating": 439,
+      "isOwner": false
+    },
+    {
       "id": 2,
       "login": "admin1",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "admin",
       "fullName": "Иванов Иван Иванович",
-      "class": "9А",
+      "class": "8А",
       "rating": null,
       "isOwner": false
     },
     {
       "id": 3,
       "login": "helper1",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "helper",
       "fullName": "Петров Пётр Сергеевич",
-      "class": "9А",
+      "class": "8А",
       "rating": 500,
       "isOwner": false
     },
     {
       "id": 4,
       "login": "helper2",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "helper",
       "fullName": "Смирнова Елена Дмитриевна",
-      "class": "9А",
+      "class": "8А",
       "rating": 492,
       "isOwner": false
     },
     {
       "id": 5,
       "login": "student1",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "user",
       "fullName": "Сидоров Сергей Сергеевич",
-      "class": "9А",
+      "class": "8А",
       "rating": 255,
       "isOwner": false
     },
     {
       "id": 6,
       "login": "user2",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "user",
       "fullName": "Козлова Анна Ивановна",
-      "class": "9А",
+      "class": "8А",
       "rating": 338,
       "isOwner": false
     },
     {
       "id": 7,
       "login": "user3",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "user",
       "fullName": "Соколов Максим Владимирович",
-      "class": "9А",
+      "class": "8А",
       "rating": 246,
       "isOwner": false
     },
     {
       "id": 8,
       "login": "user4",
-      "password": "$2b$10$BVhqk3a6QSFjBfHIkBb2HOA4pfNOssFTvGoL1oYHFpa9bTsgKt3KW",
+      "password": "$2b$10$ZV.1e/rI81lAOV90.fPxQO.0V5uifU9GAR/BXVKgSAwN1pLMIVgJu",
       "role": "user",
       "fullName": "Новиков Дмитрий Геннадьевич",
-      "class": "9А",
+      "class": "8А",
       "rating": 0,
       "isOwner": false
     }

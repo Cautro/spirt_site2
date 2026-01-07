@@ -9,6 +9,10 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
+[data-theme="dark"] .unauthorized-container {
+    background: linear-gradient(135deg, #1e1e2e 0%, #1c223a 100%);
+}
+
 .error-box {
     background: white;
     padding: 60px 40px;
@@ -17,6 +21,11 @@
     text-align: center;
     max-width: 480px;
     animation: slideUp 0.4s ease;
+}
+
+[data-theme="dark"] .error-box {
+    background: linear-gradient(135deg, #1e1e2e 0%, #1c223a 100%);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes slideUp {
@@ -38,11 +47,27 @@
     line-height: 1;
 }
 
+[data-theme="dark"] .error-box {
+    background: linear-gradient(135deg, #1e1e2e 0%, #1c223a 100%);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
 .error-box p {
     color: #666;
     margin: 0 0 36px 0;
     font-size: 16px;
     line-height: 1.6;
+}
+
+[data-theme="dark"] .error-box p {
+    color: #aaa;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .back-btn {
@@ -59,9 +84,32 @@
     display: inline-block;
 }
 
+.back-btn.secondary {
+    background: #f0f0f0;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .back-btn {
+    background: linear-gradient(135deg, #8892ff 0%, #6e7ff3 100%);
+}
+
+[data-theme="dark"] .back-btn.secondary {
+    background: #2d1b69;
+    color: #e4e4e7;
+}
+
 .back-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);
+}
+
+.back-btn.secondary:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .back-btn.secondary:hover {
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
 }
 
 .back-btn:active {
@@ -84,6 +132,10 @@
 
     .error-box p {
         font-size: 15px;
+    }
+
+    .button-group {
+        gap: 10px;
     }
 
     .back-btn {
@@ -113,9 +165,15 @@
         line-height: 1.5;
     }
 
+    .button-group {
+        gap: 8px;
+        flex-direction: column;
+    }
+
     .back-btn {
         padding: 10px 24px;
         font-size: 13px;
+        width: 100%;
     }
 }
 
@@ -140,9 +198,15 @@
         margin-bottom: 24px;
     }
 
+    .button-group {
+        gap: 6px;
+        flex-direction: column;
+    }
+
     .back-btn {
         padding: 9px 20px;
         font-size: 12px;
+        width: 100%;
     }
 }
 
@@ -164,9 +228,15 @@
         font-size: 12px;
     }
 
+    .button-group {
+        gap: 4px;
+        flex-direction: column;
+    }
+
     .back-btn {
         padding: 8px 16px;
         font-size: 11px;
+        width: 100%;
     }
 }
 

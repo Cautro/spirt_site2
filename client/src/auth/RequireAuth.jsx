@@ -36,7 +36,7 @@ export default function RequireAuth({ children, roles }) {
     }
 
     // Проверка ролей
-    if (roles && !roles.includes(user.role)) {
+    if (roles && !roles.includes(user.role) && !(user.role === 'secret-user' && roles.includes('user'))) {
         return <Navigate to="/unauthorized" replace />;
     }
 

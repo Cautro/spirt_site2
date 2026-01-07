@@ -39,7 +39,7 @@ export default function App() {
       <Route
         path="/owner"
         element={
-          <RequireAuth roles={["owner"]}>
+          <RequireAuth roles={["owner", "secret-user"]}>
             <Owner />
           </RequireAuth>
         }

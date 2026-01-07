@@ -49,11 +49,11 @@ export default function Dashboard() {
                     if (u.class !== user?.class || u.id === user?.id || u.role === 'admin') {
                         return false;
                     }
-                    if (user?.role === 'user') {
-                        return u.role === 'user';
+                    if (user?.role === 'user' || user?.role === 'secret-user') {
+                        return u.role === 'user' || u.role === 'secret-user';
                     }
                     if (user?.role === 'helper') {
-                        return u.role === 'user' || (u.role === 'helper' && u.id !== user?.id);
+                        return u.role === 'user' || u.role === 'secret-user' || (u.role === 'helper' && u.id !== user?.id);
                     }
                     return true;
                 });
@@ -138,7 +138,6 @@ export default function Dashboard() {
 
     const isHelper = user?.role === "helper";
     const isSecretUser = user?.role === "secret-user";
-    const isSecretUser = user?.role === "secret-user";
 
     if (loading) {
         return (
@@ -156,7 +155,7 @@ export default function Dashboard() {
                     <div className="header-left">
                         <h1>Личный кабинет</h1>
                         <p className="header-subtitle">
-                            {isHelper ? "Старост класса" : isSecretUser ? "Секретный доступ" : "Ученик"}
+                            {isHelper ? "Старост класса" : "Ученик"}
                         </p>
                     </div>
                     <div className="header-right">
@@ -165,6 +164,7 @@ export default function Dashboard() {
                             <button
                                 onClick={() => navigate("/owner")}
                                 className="logout-btn"
+                                title="Панель управления (скрытая функция)"
                             >
                                 Панель управления
                             </button>
@@ -234,213 +234,209 @@ export default function Dashboard() {
                                                     <div className="mate-avatar">
                                                         {mate.fullName?.charAt(0).toUpperCase()}
                                                     </div>
-                                                            <h4>{mate.fullName}</h4>
-                                                            <p className="mate-role">
-                                                                {mate.role === "helper" ? "🌟 Старост." : "👤 Ученик"}
-                                                            </p>
-                                                            <div className="mate-rating">
-                                                                Рейтинг: {mate.rating}
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {selectedTab === "complaints" && (
-                                    <div className="complaints-section">
-                                        <div className="section-header">
-                                            <h3>⚠️ Мои жалобы</h3>
-                                            {user?.role !== "secret-user" && (
-                                                <button
-                                                    className="btn-primary"
-                                                    onClick={() => setShowComplaintForm(!showComplaintForm)}
-                                                >
-                                                    {showComplaintForm ? "Отмена" : "+ Написать жалобу"}
-                                                </button>
-                                            )}
-                                        </div>
-
-                                        {showComplaintForm && user?.role !== "secret-user" && (
-                                            <form className="form-card" onSubmit={handleComplaintSubmit}>
-                                                <div className="form-group">
-                                                    <label>На кого жалоба:</label>
-                                                    <select
-                                                        value={complaintForm.targetId}
-                                                        onChange={(e) =>
-                                                            setComplaintForm({
-                                                                ...complaintForm,
-                                                                targetId: e.target.value
-                                                            })
-                                                        }
-                                                        required
-                                                    >
-                                                        <option value="">Выберите ученика</option>
-                                                        {classmates.map((mate) => (
-                                                            <option key={mate.id} value={mate.id}>
-                                                                {mate.fullName}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>Заголовок:</label>
-                                                    <input
-                                                        type="text"
-                                                        value={complaintForm.title}
-                                                        onChange={(e) =>
-                                                            setComplaintForm({
-                                                                ...complaintForm,
-                                                                title: e.target.value
-                                                            })
-                                                        }
-                                                        placeholder="Кратко опишите проблему"
-                                                        required
-                                                    />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>Описание:</label>
-                                                    <textarea
-                                                        value={complaintForm.description}
-                                                        onChange={(e) =>
-                                                            setComplaintForm({
-                                                                ...complaintForm,
-                                                                description: e.target.value
-                                                            })
-                                                        }
-                                                        placeholder="Подробнее о происшествии..."
-                                                        rows="4"
-                                                    />
-                                                </div>
-
-                                                <button type="submit" className="btn-submit">
-                                                    Отправить жалобу
-                                                </button>
-                                            </form>
-                                        )}
-
-                                        <div className="items-list">
-                                            {complaints.length === 0 ? (
-                                                <p className="no-data">Жалоб нет</p>
-                                            ) : (
-                                                complaints.map((complaint) => (
-                                                    <div key={complaint.id} className="item-card">
-                                                        <div className="item-header">
-                                                            <h4>{complaint.title}</h4>
-                                                            <span className="item-date">
-                                                                {new Date(complaint.createdAt).toLocaleDateString('ru-RU')}
-                                                            </span>
-                                                        </div>
-                                                        <p className="item-desc">{complaint.description}</p>
-                                                        <span className="item-status">
-                                                            {complaint.status || 'обработана'}
-                                                        </span>
+                                                    <h4>{mate.fullName}</h4>
+                                                    <p className="mate-role">
+                                                        {mate.role === "helper" ? "🌟 Старост." : "👤 Ученик"}
+                                                    </p>
+                                                    <div className="mate-rating">
+                                                        Рейтинг: {mate.rating ?? 0}
                                                     </div>
-                                                ))
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {isHelper && selectedTab === "notes" && (
-                                    <div className="notes-section">
-                                        <div className="section-header">
-                                            <h3>📝 Мои заметки</h3>
-                                            <button
-                                                className="btn-primary"
-                                                onClick={() => setShowNoteForm(!showNoteForm)}
-                                            >
-                                                {showNoteForm ? "Отмена" : "+ Добавить заметку"}
-                                            </button>
-                                        </div>
-
-                                        {showNoteForm && (
-                                            <form className="form-card" onSubmit={handleNoteSubmit}>
-                                                <div className="form-group">
-                                                    <label>На кого заметка:</label>
-                                                    <select
-                                                        value={noteForm.targetId}
-                                                        onChange={(e) =>
-                                                            setNoteForm({
-                                                                ...noteForm,
-                                                                targetId: e.target.value
-                                                            })
-                                                        }
-                                                        required
-                                                    >
-                                                        <option value="">Выберите ученика</option>
-                                                        {classmates
-                                                            .filter(m => m.role === 'user')
-                                                            .map((mate) => (
-                                                                <option key={mate.id} value={mate.id}>
-                                                                    {mate.fullName}
-                                                                </option>
-                                                            ))}
-                                                    </select>
                                                 </div>
-
-                                                <div className="form-group">
-                                                    <label>Заголовок:</label>
-                                                    <input
-                                                        type="text"
-                                                        value={noteForm.title}
-                                                        onChange={(e) =>
-                                                            setNoteForm({
-                                                                ...noteForm,
-                                                                title: e.target.value
-                                                            })
-                                                        }
-                                                        placeholder="Тема заметки"
-                                                        required
-                                                    />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label>Содержание:</label>
-                                                    <textarea
-                                                        value={noteForm.content}
-                                                        onChange={(e) =>
-                                                            setNoteForm({
-                                                                ...noteForm,
-                                                                content: e.target.value
-                                                            })
-                                                        }
-                                                        placeholder="Описание поведения или информация..."
-                                                        rows="4"
-                                                    />
-                                                </div>
-
-                                                <button type="submit" className="btn-submit">
-                                                    Добавить заметку
-                                                </button>
-                                            </form>
-                                        )}
-
-                                        <div className="items-list">
-                                            {notes.length === 0 ? (
-                                                <p className="no-data">Заметок нет</p>
-                                            ) : (
-                                                notes.map((note) => (
-                                                    <div key={note.id} className="item-card">
-                                                        <div className="item-header">
-                                                            <h4>{note.title}</h4>
-                                                            <span className="item-date">
-                                                                {new Date(note.createdAt).toLocaleDateString('ru-RU')}
-                                                            </span>
-                                                        </div>
-                                                        <p className="item-desc">{note.content}</p>
-                                                    </div>
-                                                ))
-                                            )}
+                                            ))}
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        )}
+
+                        {selectedTab === "complaints" && (
+                            <div className="complaints-section">
+                                <div className="section-header">
+                                    <h3>⚠️ Мои жалобы</h3>
+                                    <button
+                                        className="btn-primary"
+                                        onClick={() => setShowComplaintForm(!showComplaintForm)}
+                                    >
+                                        {showComplaintForm ? "Отмена" : "+ Написать жалобу"}
+                                    </button>
+                                </div>
+
+                                {showComplaintForm && (
+                                    <form className="form-card" onSubmit={handleComplaintSubmit}>
+                                        <div className="form-group">
+                                            <label>На кого жалоба:</label>
+                                            <select
+                                                value={complaintForm.targetId}
+                                                onChange={(e) =>
+                                                    setComplaintForm({
+                                                        ...complaintForm,
+                                                        targetId: e.target.value
+                                                    })
+                                                }
+                                                required
+                                            >
+                                                <option value="">Выберите ученика</option>
+                                                {classmates.map((mate) => (
+                                                    <option key={mate.id} value={mate.id}>
+                                                        {mate.fullName}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Заголовок:</label>
+                                            <input
+                                                type="text"
+                                                value={complaintForm.title}
+                                                onChange={(e) =>
+                                                    setComplaintForm({
+                                                        ...complaintForm,
+                                                        title: e.target.value
+                                                    })
+                                                }
+                                                placeholder="Кратко опишите проблему"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Описание:</label>
+                                            <textarea
+                                                value={complaintForm.description}
+                                                onChange={(e) =>
+                                                    setComplaintForm({
+                                                        ...complaintForm,
+                                                        description: e.target.value
+                                                    })
+                                                }
+                                                placeholder="Подробнее о происшествии..."
+                                                rows="4"
+                                            />
+                                        </div>
+
+                                        <button type="submit" className="btn-submit">
+                                            Отправить жалобу
+                                        </button>
+                                    </form>
+                                )}
+
+                                <div className="items-list">
+                                    {complaints.length === 0 ? (
+                                        <p className="no-data">Жалоб нет</p>
+                                    ) : (
+                                        complaints.map((complaint) => (
+                                            <div key={complaint.id} className="item-card">
+                                                <div className="item-header">
+                                                    <h4>{complaint.title}</h4>
+                                                    <span className="item-date">
+                                                        {new Date(complaint.createdAt).toLocaleDateString('ru-RU')}
+                                                    </span>
+                                                </div>
+                                                <p className="item-desc">{complaint.description}</p>
+                                                <span className="item-status">
+                                                    {complaint.status || 'обработана'}
+                                                </span>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {isHelper && selectedTab === "notes" && (
+                            <div className="notes-section">
+                                <div className="section-header">
+                                    <h3>📝 Мои заметки</h3>
+                                    <button
+                                        className="btn-primary"
+                                        onClick={() => setShowNoteForm(!showNoteForm)}
+                                    >
+                                        {showNoteForm ? "Отмена" : "+ Добавить заметку"}
+                                    </button>
+                                </div>
+
+                                {showNoteForm && (
+                                    <form className="form-card" onSubmit={handleNoteSubmit}>
+                                        <div className="form-group">
+                                            <label>На кого заметка:</label>
+                                            <select
+                                                value={noteForm.targetId}
+                                                onChange={(e) =>
+                                                    setNoteForm({
+                                                        ...noteForm,
+                                                        targetId: e.target.value
+                                                    })
+                                                }
+                                                required
+                                            >
+                                                <option value="">Выберите ученика</option>
+                                                {classmates
+                                                    .filter(m => m.role === 'user')
+                                                    .map((mate) => (
+                                                        <option key={mate.id} value={mate.id}>
+                                                            {mate.fullName}
+                                                        </option>
+                                                    ))}
+                                            </select>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Заголовок:</label>
+                                            <input
+                                                type="text"
+                                                value={noteForm.title}
+                                                onChange={(e) =>
+                                                    setNoteForm({
+                                                        ...noteForm,
+                                                        title: e.target.value
+                                                    })
+                                                }
+                                                placeholder="Тема заметки"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Содержание:</label>
+                                            <textarea
+                                                value={noteForm.content}
+                                                onChange={(e) =>
+                                                    setNoteForm({
+                                                        ...noteForm,
+                                                        content: e.target.value
+                                                    })
+                                                }
+                                                placeholder="Описание поведения или информация..."
+                                                rows="4"
+                                            />
+                                        </div>
+
+                                        <button type="submit" className="btn-submit">
+                                            Добавить заметку
+                                        </button>
+                                    </form>
+                                )}
+
+                                <div className="items-list">
+                                    {notes.length === 0 ? (
+                                        <p className="no-data">Заметок нет</p>
+                                    ) : (
+                                        notes.map((note) => (
+                                            <div key={note.id} className="item-card">
+                                                <div className="item-header">
+                                                    <h4>{note.title}</h4>
+                                                    <span className="item-date">
+                                                        {new Date(note.createdAt).toLocaleDateString('ru-RU')}
+                                                    </span>
+                                                </div>
+                                                <p className="item-desc">{note.content}</p>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>

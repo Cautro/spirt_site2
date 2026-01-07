@@ -14,6 +14,9 @@ export default function Admin() {
     const [ratingChange, setRatingChange] = useState(0);
     const [loading, setLoading] = useState(true);
     const [showAddUserModal, setShowAddUserModal] = useState(false);
+    const [complaints, setComplaints] = useState([]);
+    const [notes, setNotes] = useState([]);
+    const [selectedTab, setSelectedTab] = useState("students");
     const [newUserForm, setNewUserForm] = useState({
         login: "",
         password: "",
@@ -27,21 +30,34 @@ export default function Admin() {
             navigate("/unauthorized");
             return;
         }
-        fetchStudents();
+        fetchData();
     }, [user, navigate]);
 
-    const fetchStudents = async () => {
+    const fetchData = async () => {
         try {
-            const res = await fetch(`${API_URL}/api/users`, {
-                credentials: "include"
-            });
-            if (res.ok) {
-                const users = await res.json();
+            const [usersRes, complaintsRes, notesRes] = await Promise.all([
+                fetch(`${API_URL}/api/users`, { credentials: "include" }),
+                fetch(`${API_URL}/api/complaints`, { credentials: "include" }),
+                fetch(`${API_URL}/api/notes`, { credentials: "include" })
+            ]);
+
+            if (usersRes.ok) {
+                const users = await usersRes.json();
                 const filtered = users.filter(u =>
                     u.class === user?.class &&
                     (u.role === 'user' || u.role === 'helper')
                 );
                 setStudents(filtered);
+            }
+
+            if (complaintsRes.ok) {
+                const complaintsData = await complaintsRes.json();
+                setComplaints(complaintsData);
+            }
+
+            if (notesRes.ok) {
+                const notesData = await notesRes.json();
+                setNotes(notesData);
             }
         } catch (err) {
             console.error(err);
@@ -169,6 +185,51 @@ export default function Admin() {
         }
     };
 
+    const handleDeleteComplaint = async (id) => {
+        if (!window.confirm("Вы уверены, что хотите удалить эту жалобу?")) return;
+
+        try {
+            const res = await fetch(`${API_URL}/api/complaints/${id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (res.ok) {
+                setComplaints(complaints.filter(c => c.id !== id));
+                setSuccess("Жалоба удалена");
+                setTimeout(() => setSuccess(""), 3000);
+            }
+        } catch (err) {
+            console.error(err);
+            setError("Ошибка при удалении жалобы");
+        }
+    };
+
+    const handleDeleteNote = async (id) => {
+        if (!window.confirm("Вы уверены, что хотите удалить эту заметку?")) return;
+
+        try {
+            const res = await fetch(`${API_URL}/api/notes/${id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (res.ok) {
+                setNotes(notes.filter(n => n.id !== id));
+                setSuccess("Заметка удалена");
+                setTimeout(() => setSuccess(""), 3000);
+            }
+        } catch (err) {
+            console.error(err);
+            setError("Ошибка при удалении заметки");
+        }
+    };
+
+    const getUserName = (userId) => {
+        const foundUser = students.find(u => u.id === userId);
+        return foundUser ? foundUser.fullName : `Пользователь ${userId}`;
+    };
+
     const getStatistics = () => {
         const stats = {
             total: students.length,
@@ -200,8 +261,8 @@ export default function Admin() {
             <header className="admin-header">
                 <div className="header-content">
                     <div className="header-left">
-                        <h1>Администраторская панель</h1>
-                        <p className="header-subtitle">Управление рейтингом учеников класса {user?.class}</p>
+                        <h1>Панель управления</h1>
+                        <p className="header-subtitle">Управление рейтингом учеников класса {user?.class || '8А'}</p>
                     </div>
                     <div className="header-right">
                         <ThemeToggle />
@@ -214,6 +275,30 @@ export default function Admin() {
             {success && <div className="alert alert-success">{success}</div>}
 
             <main className="admin-content">
+                {/* Вкладки */}
+                <div className="admin-tabs">
+                    <button
+                        className={`admin-tab ${selectedTab === 'students' ? 'active' : ''}`}
+                        onClick={() => setSelectedTab('students')}
+                    >
+                        Ученики
+                    </button>
+                    <button
+                        className={`admin-tab ${selectedTab === 'complaints' ? 'active' : ''}`}
+                        onClick={() => setSelectedTab('complaints')}
+                    >
+                        Жалобы ({complaints.length})
+                    </button>
+                    <button
+                        className={`admin-tab ${selectedTab === 'notes' ? 'active' : ''}`}
+                        onClick={() => setSelectedTab('notes')}
+                    >
+                        Заметки ({notes.length})
+                    </button>
+                </div>
+
+                {selectedTab === 'students' && (
+                <>
                 {/* Статистика */}
                 <div className="stats-grid">
                     <div className="stat-card">
@@ -383,6 +468,77 @@ export default function Admin() {
                         )}
                     </div>
                 </div>
+                </>
+                )}
+
+                {selectedTab === 'complaints' && (
+                    <div className="complaints-section">
+                        <h2>Жалобы учеников класса {user?.class || '8А'}</h2>
+                        {complaints.length === 0 ? (
+                            <p className="no-data">Жалоб нет</p>
+                        ) : (
+                            <div className="items-list">
+                                {complaints.map((complaint) => (
+                                    <div key={complaint.id} className="item-card complaint-card">
+                                        <div className="item-header">
+                                            <h4>{complaint.title}</h4>
+                                            <button
+                                                className="btn-delete-item"
+                                                onClick={() => handleDeleteComplaint(complaint.id)}
+                                                title="Удалить"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                        <p className="item-desc">{complaint.description}</p>
+                                        <div className="item-meta">
+                                            <span className="item-date">
+                                                {new Date(complaint.createdAt).toLocaleDateString('ru-RU')}
+                                            </span>
+                                            <span className={`item-status ${complaint.status === 'resolved' ? 'resolved' : ''}`}>
+                                                {complaint.status === 'resolved' ? 'Рассмотрена' : 'Новая'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {selectedTab === 'notes' && (
+                    <div className="notes-section">
+                        <h2>Заметки от старост класса {user?.class || '8А'}</h2>
+                        {notes.length === 0 ? (
+                            <p className="no-data">Заметок нет</p>
+                        ) : (
+                            <div className="items-list">
+                                {notes.map((note) => (
+                                    <div key={note.id} className="item-card note-card">
+                                        <div className="item-header">
+                                            <h4>{note.title}</h4>
+                                            <button
+                                                className="btn-delete-item"
+                                                onClick={() => handleDeleteNote(note.id)}
+                                                title="Удалить"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                        <p className="item-desc">{note.content}</p>
+                                        <div className="item-meta">
+                                            <span className="note-author">От: {getUserName(note.userId)}</span>
+                                            <span className="note-target">На: {getUserName(note.targetId)}</span>
+                                            <span className="item-date">
+                                                {new Date(note.createdAt).toLocaleDateString('ru-RU')}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </main>
 
             {showAddUserModal && (

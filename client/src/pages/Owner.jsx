@@ -212,8 +212,8 @@ export default function Owner() {
         <div className="owner-container">
             <header className="owner-header">
                 <div className="owner-header-left">
-                    <h1>Администраторская панель системы</h1>
-                    <p className="owner-badge">Управление пользователями • Контроль системы</p>
+                    <h1>Панель управления</h1>
+                    <p className="owner-badge">Управление пользователями • Контроль жалоб и заметок</p>
                 </div>
                 <div className="owner-header-right">
                     <div className="user-info">
@@ -471,9 +471,9 @@ export default function Owner() {
                                     value={newUserForm.role}
                                     onChange={(e) => setNewUserForm({...newUserForm, role: e.target.value})}
                                 >
-                                    <option value="user">👤 Ученик</option>
-                                    <option value="helper">🌟 Старост</option>
-                                    <option value="admin">👨‍🏫 Учитель</option>
+                                    <option value="user">Ученик</option>
+                                    <option value="helper">Старост</option>
+                                    <option value="admin">Учитель</option>
                                 </select>
                             </div>
                             <div className="modal-buttons">

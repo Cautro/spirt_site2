@@ -81,17 +81,7 @@
       "isOwner": false
     }
   ],
-  "complaints": [
-    {
-      "id": 1,
-      "title": "121",
-      "description": "1212",
-      "userId": 3,
-      "status": "open",
-      "createdAt": "2026-01-07T19:04:59.621Z",
-      "updatedAt": "2026-01-07T19:04:59.621Z"
-    }
-  ],
+  "complaints": [],
   "notes": [],
   "logs": []
 }

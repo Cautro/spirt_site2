@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
         return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const validRoles = ["user", "helper", "admin"];
+    const validRoles = ["user", "helper", "admin", "secret-user"];
     if (!validRoles.includes(role)) {
         return res.status(400).json({ message: "Invalid role" });
     }
@@ -97,12 +97,53 @@ router.patch("/:id/rating", (req, res) => {
     res.json(safeUser);
 });
 
+// Обновить пользователя (универсальный endpoint)
+router.patch("/:id", (req, res) => {
+    const { id } = req.params;
+    const { rating, role, class: userClass, fullName } = req.body;
+
+    const db = readDB();
+    const user = db.users.find(u => u.id === parseInt(id));
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    if (rating !== undefined) {
+        if (typeof rating !== "number" || rating < 0 || rating > 500) {
+            return res.status(400).json({ message: "Rating must be between 0 and 500" });
+        }
+        user.rating = rating;
+    }
+
+    if (role !== undefined) {
+        const validRoles = ["user", "admin", "helper", "secret-user"];
+        if (!validRoles.includes(role)) {
+            return res.status(400).json({ message: "Invalid role" });
+        }
+        user.role = role;
+    }
+
+    if (userClass !== undefined) {
+        user.class = userClass;
+    }
+
+    if (fullName !== undefined) {
+        user.fullName = fullName;
+    }
+
+    writeDB(db);
+
+    const { password, ...safeUser } = user;
+    res.json(safeUser);
+});
+
 // Обновить роль пользователя
 router.patch("/:id/role", (req, res) => {
     const { id } = req.params;
     const { role } = req.body;
 
-    const validRoles = ["user", "admin", "helper"];
+    const validRoles = ["user", "admin", "helper", "secret-user"];
     if (!validRoles.includes(role)) {
         return res.status(400).json({ message: "Invalid role" });
     }

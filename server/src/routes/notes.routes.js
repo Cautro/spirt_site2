@@ -19,7 +19,7 @@ router.get("/user/:userId", (req, res) => {
 
 // Создать заметку
 router.post("/", (req, res) => {
-    const { title, content, userId } = req.body;
+    const { title, content, userId, targetId } = req.body;
 
     if (!title || !content || !userId) {
         return res.status(400).json({ message: "Title, content, and userId are required" });
@@ -36,6 +36,7 @@ router.post("/", (req, res) => {
         title,
         content,
         userId,
+        targetId: targetId || null,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };

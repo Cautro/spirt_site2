@@ -32,7 +32,7 @@ export default function Login() {
             }
 
             const data = await response.json();
-            loginUser(data.user);
+            loginUser(data.user, data.token);
             if (data.user.role === "owner") {
                 navigate("/owner");
             } else if (data.user.role === "admin") {

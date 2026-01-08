@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useEffect, useState } from "react";
 import ThemeToggle from "../components/ThemeToggle";
+import { apiFetch, API_URL } from "../utils/api";
 import "../styles/Admin.css";
 
-const API_URL = "http://localhost:3000";
 
 export default function Admin() {
     const { user, logout } = useAuth();
@@ -37,16 +37,16 @@ export default function Admin() {
     const fetchData = async () => {
         try {
             const [usersRes, complaintsRes, notesRes] = await Promise.all([
-                fetch(`${API_URL}/api/users`, { credentials: "include" }),
-                fetch(`${API_URL}/api/complaints`, { credentials: "include" }),
-                fetch(`${API_URL}/api/notes`, { credentials: "include" })
+                apiFetch("/api/users"),
+                apiFetch("/api/complaints"),
+                apiFetch("/api/notes")
             ]);
 
             if (usersRes.ok) {
                 const users = await usersRes.json();
                 const filtered = users.filter(u =>
                     u.class === user?.class &&
-                    (u.role === 'user' || u.role === 'helper')
+                    (u.role === 'user' || u.role === 'helper' || u.role === 'secret-user')
                 );
                 setStudents(filtered);
             }
@@ -88,10 +88,8 @@ export default function Admin() {
         }
 
         try {
-            const res = await fetch(`${API_URL}/api/users/${selectedStudent.id}/rating`, {
+            const res = await apiFetch(`/api/users/${selectedStudent.id}/rating`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({ rating: newRating })
             });
 
@@ -122,14 +120,12 @@ export default function Admin() {
         }
 
         try {
-            const res = await fetch(`${API_URL}/api/users`, {
+            const res = await apiFetch("/api/users", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({
                     login: newUserForm.login,
                     password: newUserForm.password,
-                    role: "user",
+                    role: newUserForm.role,
                     fullName: newUserForm.fullName,
                     class: newUserForm.class || user?.class
                 })
@@ -166,9 +162,8 @@ export default function Admin() {
         if (!window.confirm("Вы уверены, что хотите удалить этого ученика?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/users/${id}`, {
-                method: "DELETE",
-                credentials: "include"
+            const res = await apiFetch(`/api/users/${id}`, {
+                method: "DELETE"
             });
 
             if (res.ok) {
@@ -191,9 +186,8 @@ export default function Admin() {
         if (!window.confirm("Вы уверены, что хотите удалить эту жалобу?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/complaints/${id}`, {
-                method: "DELETE",
-                credentials: "include"
+            const res = await apiFetch(`/api/complaints/${id}`, {
+                method: "DELETE"
             });
 
             if (res.ok) {
@@ -211,9 +205,8 @@ export default function Admin() {
         if (!window.confirm("Вы уверены, что хотите удалить эту заметку?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/notes/${id}`, {
-                method: "DELETE",
-                credentials: "include"
+            const res = await apiFetch(`/api/notes/${id}`, {
+                method: "DELETE"
             });
 
             if (res.ok) {
@@ -289,13 +282,13 @@ export default function Admin() {
                         className={`admin-tab ${selectedTab === 'complaints' ? 'active' : ''}`}
                         onClick={() => setSelectedTab('complaints')}
                     >
-                        Жалобы ({complaints.length})
+                        Жалобы
                     </button>
                     <button
                         className={`admin-tab ${selectedTab === 'notes' ? 'active' : ''}`}
                         onClick={() => setSelectedTab('notes')}
                     >
-                        Заметки ({notes.length})
+                        Заметки
                     </button>
                 </div>
 
@@ -494,6 +487,11 @@ export default function Admin() {
                                         </div>
                                         <p className="item-desc">{complaint.description}</p>
                                         <div className="item-meta">
+                                            {complaint.userId && (
+                                                <span className="item-target">
+                                                    <strong>На:</strong> {getUserName(complaint.targetId)}
+                                                </span>
+                                            )}
                                             <span className="item-date">
                                                 {new Date(complaint.createdAt).toLocaleDateString('ru-RU')}
                                             </span>
@@ -591,6 +589,15 @@ export default function Admin() {
                                     onChange={(e) => setNewUserForm({...newUserForm, class: e.target.value})}
                                     placeholder="Например: 8А"
                                 />
+                            </div>
+                            <div className="form-group">
+                                <label>Роль</label>
+                                <select
+                                    value={newUserForm.role}
+                                    onChange={(e) => setNewUserForm({...newUserForm, role: e.target.value})}>
+                                    <option value="user">Ученик</option>
+                                    <option value="helper">Староста</option>
+                                </select>
                             </div>
                             <div className="modal-buttons">
                                 <button type="submit" className="btn-primary">Добавить</button>

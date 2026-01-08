@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useEffect, useState } from "react";
 import ThemeToggle from "../components/ThemeToggle";
+import { apiFetch, API_URL } from "../utils/api";
 import "../styles/Owner.css";
 
-const API_URL = "http://localhost:3000";
 
 export default function Owner() {
     const { user, logout } = useAuth();
@@ -15,6 +15,9 @@ export default function Owner() {
     const [selectedTab, setSelectedTab] = useState("users");
     const [loading, setLoading] = useState(true);
     const [showAddUserModal, setShowAddUserModal] = useState(false);
+    const [showRatingModal, setShowRatingModal] = useState(false);
+    const [selectedUserForRating, setSelectedUserForRating] = useState(null);
+    const [ratingValue, setRatingValue] = useState("");
     const [newUserForm, setNewUserForm] = useState({
         login: "",
         password: "",
@@ -36,9 +39,9 @@ export default function Owner() {
     const fetchData = async () => {
         try {
             const [usersRes, complaintsRes, notesRes] = await Promise.all([
-                fetch(`${API_URL}/api/users`, { credentials: "include" }),
-                fetch(`${API_URL}/api/complaints`, { credentials: "include" }),
-                fetch(`${API_URL}/api/notes`, { credentials: "include" })
+                apiFetch("/users"),
+                apiFetch("/complaints"),
+                apiFetch("/notes")
             ]);
 
             if (usersRes.ok) {
@@ -85,9 +88,8 @@ export default function Owner() {
         if (!window.confirm("Вы уверены, что хотите удалить эту жалобу?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/complaints/${id}`, {
-                method: "DELETE",
-                credentials: "include"
+            const res = await apiFetch(`/complaints/${id}`, {
+                method: "DELETE"
             });
 
             if (res.ok) {
@@ -105,9 +107,8 @@ export default function Owner() {
         if (!window.confirm("Вы уверены, что хотите удалить эту заметку?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/notes/${id}`, {
-                method: "DELETE",
-                credentials: "include"
+            const res = await apiFetch(`/notes/${id}`, {
+                method: "DELETE"
             });
 
             if (res.ok) {
@@ -130,7 +131,7 @@ export default function Owner() {
         if (!window.confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/users/${id}`, {
+            const res = await fetch(`${API_URL}/users/${id}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -148,6 +149,52 @@ export default function Owner() {
         }
     };
 
+    const openRatingModal = (user) => {
+        setSelectedUserForRating(user);
+        setRatingValue(user.rating !== null ? user.rating.toString() : "");
+        setShowRatingModal(true);
+    };
+
+    const handleUpdateRating = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        if (!selectedUserForRating) return;
+
+        const newRating = parseInt(ratingValue);
+        if (isNaN(newRating)) {
+            setError("Введите корректное число");
+            return;
+        }
+
+        if (newRating < 0 || newRating > 500) {
+            setError("Рейтинг должен быть от 0 до 500");
+            return;
+        }
+
+        try {
+            const res = await apiFetch(`/users/${selectedUserForRating.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({ rating: newRating })
+            });
+
+            if (res.ok) {
+                const updatedUser = await res.json();
+                setAllUsers(allUsers.map(u => u.id === updatedUser.id ? updatedUser : u));
+                setShowRatingModal(false);
+                setSelectedUserForRating(null);
+                setRatingValue("");
+                setSuccess("Рейтинг обновлен");
+                setTimeout(() => setSuccess(""), 3000);
+            } else {
+                setError("Ошибка при обновлении рейтинга");
+            }
+        } catch (err) {
+            console.error(err);
+            setError("Ошибка при обновлении рейтинга");
+        }
+    };
+
     const handleAddUser = async (e) => {
         e.preventDefault();
         setError("");
@@ -158,10 +205,8 @@ export default function Owner() {
         }
 
         try {
-            const res = await fetch(`${API_URL}/api/users`, {
+            const res = await apiFetch("/users", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({
                     login: newUserForm.login,
                     password: newUserForm.password,
@@ -323,6 +368,13 @@ export default function Owner() {
                                                         <td className="rating-cell">{u.rating !== null ? u.rating : '—'}</td>
                                                         <td className="actions-cell">
                                                             <button
+                                                                className="btn-rating-small"
+                                                                onClick={() => openRatingModal(u)}
+                                                                title="Изменить рейтинг"
+                                                            >
+                                                                ★
+                                                            </button>
+                                                            <button
                                                                 className="btn-delete-small"
                                                                 onClick={() => handleDeleteUser(u.id)}
                                                                 title="Удалить пользователя"
@@ -369,6 +421,11 @@ export default function Owner() {
                                                     <span className="sender">
                                                         <strong>От:</strong> {getUserName(complaint.userId)}
                                                     </span>
+                                                    {complaint.targetId && (
+                                                        <span className="target">
+                                                            <strong>На:</strong> {getUserName(complaint.targetId)}
+                                                        </span>
+                                                    )}
                                                     <span className="date">
                                                         {new Date(complaint.createdAt).toLocaleDateString('ru-RU')}
                                                     </span>
@@ -490,6 +547,53 @@ export default function Owner() {
                                     type="button"
                                     className="btn-secondary"
                                     onClick={() => setShowAddUserModal(false)}
+                                >
+                                    Отмена
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {showRatingModal && selectedUserForRating && (
+                <div className="modal-overlay" onClick={() => setShowRatingModal(false)}>
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2>Изменить рейтинг</h2>
+                            <button
+                                className="modal-close"
+                                onClick={() => setShowRatingModal(false)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        <form onSubmit={handleUpdateRating} className="modal-form">
+                            <div className="form-group">
+                                <label>Пользователь</label>
+                                <p className="user-info-display">{selectedUserForRating.fullName}</p>
+                            </div>
+                            <div className="form-group">
+                                <label>Текущий рейтинг: {selectedUserForRating.rating !== null ? selectedUserForRating.rating : '—'}</label>
+                            </div>
+                            <div className="form-group">
+                                <label>Новый рейтинг *</label>
+                                <input
+                                    type="number"
+                                    value={ratingValue}
+                                    onChange={(e) => setRatingValue(e.target.value)}
+                                    placeholder="Введите значение от 0 до 500"
+                                    min="0"
+                                    max="500"
+                                />
+                                <small>Допустимое значение: 0 - 500</small>
+                            </div>
+                            <div className="modal-buttons">
+                                <button type="submit" className="btn-primary">Обновить</button>
+                                <button
+                                    type="button"
+                                    className="btn-secondary"
+                                    onClick={() => setShowRatingModal(false)}
                                 >
                                     Отмена
                                 </button>

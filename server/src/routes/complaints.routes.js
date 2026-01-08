@@ -11,7 +11,7 @@ router.get("/", (_req, res) => {
 
 // Создать жалобу
 router.post("/", (req, res) => {
-    const { title, description, userId } = req.body;
+    const { title, description, userId, targetId } = req.body;
 
     if (!title || !description || !userId) {
         return res.status(400).json({ message: "Title, description, and userId are required" });
@@ -28,6 +28,7 @@ router.post("/", (req, res) => {
         title,
         description,
         userId,
+        targetId: targetId || null,
         status: "open",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()

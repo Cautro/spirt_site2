@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useState, useEffect } from "react";
 import ThemeToggle from "../components/ThemeToggle";
+import { apiFetch, API_URL } from "../utils/api";
 import "../styles/Dashboard.css";
 
-const API_URL = "http://localhost:3000";
 
 export default function Dashboard() {
     const { user, logout } = useAuth();
@@ -38,9 +38,9 @@ export default function Dashboard() {
     const fetchData = async () => {
         try {
             const [usersRes, complaintsRes, notesRes] = await Promise.all([
-                fetch(`${API_URL}/api/users`, { credentials: "include" }),
-                fetch(`${API_URL}/api/complaints`, { credentials: "include" }),
-                fetch(`${API_URL}/api/notes`, { credentials: "include" })
+                apiFetch("/api/users"),
+                apiFetch("/api/complaints"),
+                apiFetch("/api/notes")
             ]);
 
             if (usersRes.ok) {
@@ -86,10 +86,8 @@ export default function Dashboard() {
         if (!complaintForm.targetId || !complaintForm.title) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/complaints`, {
+            const res = await apiFetch("/api/complaints", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({
                     title: complaintForm.title,
                     description: complaintForm.description,
@@ -114,10 +112,8 @@ export default function Dashboard() {
         if (!noteForm.targetId || !noteForm.title) return;
 
         try {
-            const res = await fetch(`${API_URL}/api/notes`, {
+            const res = await apiFetch("/api/notes", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify({
                     title: noteForm.title,
                     content: noteForm.content,
@@ -201,20 +197,20 @@ export default function Dashboard() {
                             className={`tab ${selectedTab === "profile" ? "active" : ""}`}
                             onClick={() => setSelectedTab("profile")}
                         >
-                            📋 Информация
+                            Информация
                         </button>
                         <button
                             className={`tab ${selectedTab === "complaints" ? "active" : ""}`}
                             onClick={() => setSelectedTab("complaints")}
                         >
-                            ⚠️ Жалобы ({complaints.length})
+                            Жалобы ({complaints.length})
                         </button>
                         {isHelper && (
                             <button
                                 className={`tab ${selectedTab === "notes" ? "active" : ""}`}
                                 onClick={() => setSelectedTab("notes")}
                             >
-                                📝 Заметки ({notes.length})
+                                Заметки ({notes.length})
                             </button>
                         )}
                     </div>
@@ -223,7 +219,7 @@ export default function Dashboard() {
                         {selectedTab === "profile" && (
                             <div className="profile-section">
                                 <div className="section-card">
-                                    <h3>📚 Информация о классе</h3>
+                                    <h3>Информация о классе</h3>
                                     <p>Одноклассники в вашем классе:</p>
                                     {classmates.length === 0 ? (
                                         <p className="no-data">Нет одноклассников</p>
@@ -236,7 +232,7 @@ export default function Dashboard() {
                                                     </div>
                                                     <h4>{mate.fullName}</h4>
                                                     <p className="mate-role">
-                                                        {mate.role === "helper" ? "🌟 Старост." : "👤 Ученик"}
+                                                        {mate.role === "helper" ? "Старост." : "Ученик"}
                                                     </p>
                                                     <div className="mate-rating">
                                                         Рейтинг: {mate.rating ?? 0}
@@ -252,7 +248,7 @@ export default function Dashboard() {
                         {selectedTab === "complaints" && (
                             <div className="complaints-section">
                                 <div className="section-header">
-                                    <h3>⚠️ Мои жалобы</h3>
+                                    <h3>Мои жалобы</h3>
                                     <button
                                         className="btn-primary"
                                         onClick={() => setShowComplaintForm(!showComplaintForm)}
@@ -347,7 +343,7 @@ export default function Dashboard() {
                         {isHelper && selectedTab === "notes" && (
                             <div className="notes-section">
                                 <div className="section-header">
-                                    <h3>📝 Мои заметки</h3>
+                                    <h3>Мои заметки</h3>
                                     <button
                                         className="btn-primary"
                                         onClick={() => setShowNoteForm(!showNoteForm)}
